@@ -1,0 +1,36 @@
+﻿@model Category
+
+@{
+    ViewData["Title"] = "look carefully myboi";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Product Details</h2>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Category id</th>
+                            <td>@Model.category_id</td>
+                        </tr>
+                        <tr>
+                            <th>Category Name</th>
+                            <td>@Model.category_name</td>
+                        </tr>                         
+                        <tr>
+                            <th>Category Description</th>
+                            <td>@Model.category_desc</td>
+                        </tr>                        
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <a asp-controller="Categories" asp-action="Index" class="btn btn-secondary">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

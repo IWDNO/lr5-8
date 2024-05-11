@@ -1,0 +1,40 @@
+﻿@model List<Category>
+@{
+    ViewData["Title"] = "Productz";
+}
+
+<h2>Список категорий</h2>
+<a class="btn btn-primary btn-sm" asp-controller="Categories" asp-action="Create">Create</a>
+
+@if (Model != null)
+{
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Название</th>
+                <th>Описание</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.category_name</td>
+                    <td>@item.category_desc</td>
+                    <td style="white-space:nowrap">
+                        <a class="btn btn-primary btn-sm" asp-controller="Categories" asp-action="Details" asp-route-id="@item.category_id">Details</a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="btn btn-secondary btn-sm" asp-controller="Categories" asp-action="Edit" asp-route-id="@item.category_id">Edit</a>
+                            <a class="btn btn-outline-danger btn-sm" asp-controller="Categories" asp-action="Delete" asp-route-id="@item.category_id">Delete</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Нет доступных продуктов.</p>
+}

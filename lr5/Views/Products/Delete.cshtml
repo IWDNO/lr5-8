@@ -1,0 +1,61 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "delete me boi";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Delete Product</h2>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Product Name</th>
+                            <td>@Model.ProductName</td>
+                        </tr>
+                        <tr>
+                            <th>Product Brand</th>
+                            <td>@Model.ProductBrand</td>
+                        </tr>
+                        <tr>
+                            <th>Product Price</th>
+                            <td>@Model.ProductPrice</td>
+                        </tr>
+                        <tr>
+                            <th>Processor Frequency</th>
+                            <td>@Model.ProcessorFrequency</td>
+                        </tr>
+                        <tr>
+                            <th>RAM Size</th>
+                            <td>@Model.RamSize</td>
+                        </tr>
+                        <tr>
+                            <th>Storage Size</th>
+                            <td>@Model.StorageSize</td>
+                        </tr>
+                        <tr>
+                        <th>Category</th>
+                            <td>@ViewBag.Category</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        <div class="col-auto">
+                            <form asp-controller="Products" asp-action="DeleteProduct" asp-route-id="@Model.Product_id" method="post">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                        <div class="col-auto">
+                            <a asp-controller="Products" asp-action="Index" asp-route-id="@Model.category_id" class="btn btn-secondary">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

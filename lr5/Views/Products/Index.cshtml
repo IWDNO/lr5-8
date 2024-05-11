@@ -1,0 +1,114 @@
+﻿@{
+    ViewData["Title"] = "Productz";
+}
+
+<script>
+    $(document).ready(function () {
+        // Первоначальная загрузка
+        loadProductsByCategory(@ViewBag.Id);
+
+        // Обработчик кликов по кнопкам категорий
+        $('.categoryBtn').click(function () {
+            var categoryId = $(this).data('category-id');
+            loadProductsByCategory(categoryId);
+        });
+
+        // Детальный просмотр
+        $(document).on('click', '.btnDetails', function () {
+            var productId = $(this).data('product-id');
+            $.ajax({
+                url: '@Url.Action("Details", "Products")',
+                type: 'GET',
+                data: { id: productId },
+                success: function (result) {
+                    console.log();
+                    $('#productName').text(result.product.productName);
+                    $('#productBrand').text(result.product.productBrand);
+                    $('#productPrice').text(result.product.productPrice);
+                    $('#processorFrequency').text(result.product.processorFrequency);
+                    $('#ramSize').text(result.product.ramSize);
+                    $('#storageSize').text(result.product.storageSize);
+                    $('#productCategory').text(result.categoryName);
+                    $('#productDetailsModal').modal('show');
+                },
+                error: function (xhr) {
+                    alert('Произошла ошибка при загрузке товаров.');
+                }
+            });
+        });
+    });
+
+    // Функция для загрузки товаров по выбранной категории
+    function loadProductsByCategory(categoryId) {
+        $('.categoryBtn').prop('disabled', false);
+
+        $.ajax({
+            url: '@Url.Action("GetProductsByCategory", "Products")',
+            type: 'GET',
+            data: { categoryId: categoryId },
+            success: function (result) {
+                $('#productList').html(result);
+                $('.categoryBtn[data-category-id="' + categoryId + '"]').prop('disabled', true);
+            },
+            error: function (xhr) {
+                alert('Произошла ошибка при загрузке товаров.');
+            }
+        });
+    }
+    
+</script>
+
+<h2>Список товаров</h2>
+<div>
+    <h6>Выберите категорию:</h6>
+    @foreach (var category in ViewBag.Categories)
+    {
+        <button class="categoryBtn btn btn-primary" data-category-id="@category.category_id">@category.category_name</button>
+    }
+</div>
+
+<br />
+
+<div id="productList"></div>
+
+<div class="modal fade" id="productDetailsModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Product Details</h5>
+            </div>
+            <div class="modal-body" id="productDetailsModalBody">
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Product Name</th>
+                        <td id="productName"></td>
+                    </tr>
+                    <tr>
+                        <th>Product Brand</th>
+                        <td id="productBrand"></td>
+                    </tr>
+                    <tr>
+                        <th>Product Price</th>
+                        <td id="productPrice"></td>
+                    </tr>
+                    <tr>
+                        <th>Processor Frequency</th>
+                        <td id="processorFrequency"></td>
+                    </tr>
+                    <tr>
+                        <th>RAM Size</th>
+                        <td id="ramSize"></td>
+                    </tr>
+                    <tr>
+                        <th>Storage Size</th>
+                        <td id="storageSize"></td>
+                    </tr>
+                    <tr>
+                        <th>Category</th>
+                        <td id="productCategory"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

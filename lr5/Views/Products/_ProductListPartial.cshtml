@@ -1,0 +1,42 @@
+﻿@model List<Product>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Название</th>
+                <th>Бренд</th>
+                <th>Цена</th>
+                <th>Частота процессора</th>
+                <th>Объем оперативной памяти</th>
+                <th>Объем хранилища</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.ProductName</td>
+                    <td>@product.ProductBrand</td>
+                    <td>@product.ProductPrice</td>
+                    <td>@product.ProcessorFrequency</td>
+                    <td>@product.RamSize</td>
+                    <td>@product.StorageSize</td>
+                    <td style="white-space:nowrap">
+                        <a class="btn btn-primary btn-sm btnDetails" data-product-id="@product.Product_id">Details</a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="btn btn-secondary btn-sm" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Product_id">Edit</a>
+                            <a class="btn btn-outline-danger btn-sm" asp-controller="Products" asp-action="Delete" asp-route-id="@product.Product_id">Delete</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Нет доступных продуктов в выбранной категории.</p>
+}

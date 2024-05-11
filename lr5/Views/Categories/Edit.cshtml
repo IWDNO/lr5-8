@@ -1,0 +1,48 @@
+﻿@model Category
+@{
+    ViewData["Title"] = "Edit this myboi";
+}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Edit Product</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <div class="row mb-3" hidden>
+                            <label class="col-sm-4 col-form-label">Id</label>
+                            <div class="col-sm-4">
+                                <input class="form-control-plaintext" readonly asp-for="category_id" />
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-4 col-form-label">Category Name</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="text" asp-for="category_name" />
+                                <span class="text-danger" asp-validation-for="category_name"></span>
+                            </div>
+                        </div>                        
+                        <div class="row mb-3">
+                            <label class="col-sm-4 col-form-label">Category Description</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="text" asp-for="category_desc" />
+                                <span class="text-danger" asp-validation-for="category_desc"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-auto">
+                                <input class="btn btn-primary" type="submit" value="Submit" />
+                            </div>
+                            <div class="col-auto">
+                                <a asp-controller="Categories" asp-action="Index" class="btn btn-secondary">Back to List</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
